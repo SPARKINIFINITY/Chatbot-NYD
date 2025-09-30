@@ -44,7 +44,7 @@ Client → Flask API → Ingestion → Cleaning → Chunking → Embedding → F
                                               │                        │
                                               └─> Metadata JSONL <─────┘
 
-Query → Hybrid Retrieval (FAISS + BM25) → (optional Cross‑Encoder Rerank) → Context → FLAN‑T5 → Answer
+Query → Hybrid Retrieval (FAISS + BM25) → Cross‑Encoder Rerank(ANN) → Context → FLAN‑T5 → Answer
 Tabular Queries → Tabular Engine (DataFrames) → Table/Metric
 
 
@@ -120,11 +120,6 @@ Notes
 - BM25 cache is invalidated on every upload/delete.
 - Index rebuilds automatically when embedding dimension changes.
 
-## Security & Privacy
-- Uploaded files are stored locally under uploads/.
-- No data is sent to third‑party services beyond model downloads from Hugging Face.
-- For production, use TLS termination, secrets management, and a WSGI server (e.g., gunicorn/uwsgi) behind a reverse proxy.
-
 ## Troubleshooting
 - Models fail to load: ensure network access; try GEN_MODEL=google/flan-t5-small.
 - FAISS dimension mismatch: the app rebuilds the index; if issues persist, remove vectorstore/ and re‑index.
@@ -134,10 +129,7 @@ Notes
 ## Roadmap
 - LLM‑driven multi‑query expansion and reciprocal rank fusion.
 - Inline citations with span highlighting and source grounding.
-- Pluggable generator backends (local GGUF, cloud GPT‑4o/Claude) with streaming.
 - Advanced dense retrievers (ColBERTv2, Contriever) and domain tuning.
-- RAG evaluation with RAGAS and telemetry/analytics.
-- Improved PDF parsing and OCR for scanned documents.
 
 ## License
 For hackathon/demo use. Add an explicit license for public distribution.

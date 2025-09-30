@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Twiks.AI</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#F97316", // Using a vibrant orange as primary, can be adjusted
+                        "background-light": "#F8FAFC",
+                        "background-dark": "#18181B",
+                        "sidebar-light": "#FFFFFF",
+                        "sidebar-dark": "#27272A",
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#27272A",
+                        "text-light": "#334155",
+                        "text-dark": "#E2E8F0",
+                        "subtext-light": "#64748B",
+                        "subtext-dark": "#94A3B8",
+                        "border-light": "#E2E8F0",
+                        "border-dark": "#3F3F46",
+                    },
+                    fontFamily: {
+                        sans: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        'lg': '0.75rem',
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+    <div class="flex h-screen relative">
+        <div
+            class="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-yellow-100 to-transparent dark:from-yellow-900/20 dark:to-transparent -z-10">
+        </div>
+        <aside
+            class="w-64 bg-transparent p-4 flex flex-col justify-between border-r border-border-light dark:border-border-dark">
+            <div>
+                <div class="flex items-center space-x-2 mb-8">
+                    <div class="w-8 h-8 bg-gray-300 rounded-md flex items-center justify-center">
+                        <span class="material-icons text-gray-600">auto_awesome</span>
+                    </div>
+                    <h1 class="text-lg font-bold text-text-light dark:text-text-dark">Insightify</h1>
+                </div>
+                <button
+                    class="w-full bg-white dark:bg-gray-700 border border-border-light dark:border-border-dark text-text-light dark:text-text-dark font-semibold py-2 px-4 rounded-lg flex items-center justify-center mb-6 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                    <span class="material-icons mr-2">add</span>
+                    New chat
+                </button>
+                <nav class="space-y-2">
+                    <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                        href="#">
+                        <span class="material-icons ">upload_file</span>
+                        <span>Upload</span>
+                    </a>
+                    <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                        href="#">
+                        <span class="material-icons">grid_view</span>
+                        <span>Templates</span>
+                    </a>
+                    <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                        href="#">
+                        <span class="material-icons">folder_open</span>
+                        <span>Files</span>
+                    </a>
+                    <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                        href="#">
+                        <span class="material-icons">history</span>
+                        <span>History</span>
+                    </a>
+                </nav>
+                <div class="mt-8">
+                    <h2 class="text-sm font-semibold text-subtext-light dark:text-subtext-dark px-2 mb-2">Recent Chats
+                    </h2>
+                    <div class="space-y-1">
+                        <a class="flex items-center space-x-3 p-2 rounded-lg text-text-light dark:text-text-dark bg-gray-100 dark:bg-gray-700/50"
+                            href="#">
+                            <span class="material-icons text-sm">chat_bubble_outline</span>
+                            <span class="text-sm">New Design Ideas for Work</span>
+                        </a>
+                        <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                            href="#">
+                            <span class="material-icons text-sm">chat_bubble_outline</span>
+                            <span class="text-sm">Smoothie Recipe Sugges...</span>
+                        </a>
+                        <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                            href="#">
+                            <span class="material-icons text-sm">chat_bubble_outline</span>
+                            <span class="text-sm">Tips for Daily Productivity</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div>
+
+                <nav class="space-y-1">
+                    <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                        href="#">
+                        <span class="material-icons">help_outline</span>
+                        <span>FAQ</span>
+                    </a>
+                    <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                        href="#">
+                        <span class="material-icons">settings</span>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+       <main class="flex-1 flex flex-col p-6 bg-transparent">
+  <header class="flex justify-between items-center mb-8">
+    <div>
+      <h2 class="text-2xl font-bold text-text-light dark:text-text-dark">Upload Files</h2>
+      <p class="text-subtext-light dark:text-subtext-dark">
+        Add files to your workspace to get started.
+      </p>
+    </div>
+    <div class="flex items-center">
+      <button
+        class="border border-border-light dark:border-border-dark py-2 px-4 rounded-lg text-text-light dark:text-text-dark flex items-center space-x-2 hover:bg-gray-100 dark:hover:bg-gray-700/50"
+      >
+        <span class="material-icons text-base">help_outline</span>
+        <span>Help</span>
+      </button>
+      <div class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full ml-4"></div>
+    </div>
+  </header>
+
+  <div class="flex-1 flex flex-col items-center justify-center text-center">
+    <div class="w-full max-w-lg">
+      <!-- Upload Area -->
+      <div
+        id="upload-area"
+        class="relative border-2 border-dashed border-border-light dark:border-border-dark rounded-xl p-8 flex flex-col items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+      >
+        <div
+          class="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mb-4"
+        >
+          <span
+            class="material-icons text-3xl text-subtext-light dark:text-subtext-dark"
+            >upload_file</span
+          >
+        </div>
+        <h3
+          class="text-xl font-semibold text-text-light dark:text-text-dark"
+        >
+          Select a file to upload
+        </h3>
+        <p class="text-subtext-light dark:text-subtext-dark mt-1">
+          Or drag and drop it here
+        </p>
+        <input
+          id="file-input"
+          class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          type="file"
+          multiple
+        />
+      </div>
+
+      <!-- Uploaded Files List -->
+      <div id="file-list" class="mt-8 space-y-4"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+const fileInput = document.getElementById("file-input");
+const fileList = document.getElementById("file-list");
+const uploadArea = document.getElementById("upload-area");
+
+// Drag & drop highlight
+uploadArea.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  uploadArea.classList.add("bg-gray-100", "dark:bg-gray-700/30");
+});
+uploadArea.addEventListener("dragleave", () => {
+  uploadArea.classList.remove("bg-gray-100", "dark:bg-gray-700/30");
+});
+uploadArea.addEventListener("drop", (e) => {
+  e.preventDefault();
+  uploadArea.classList.remove("bg-gray-100", "dark:bg-gray-700/30");
+  handleFiles(e.dataTransfer.files);
+});
+
+// File input selection
+fileInput.addEventListener("change", (e) => {
+  handleFiles(e.target.files);
+});
+
+function handleFiles(files) {
+  [...files].forEach(uploadFile);
+}
+
+function uploadFile(file) {
+  const fileId = Date.now();
+
+  // UI element
+  const fileItem = document.createElement("div");
+  fileItem.className =
+    "bg-card-light dark:bg-card-dark p-4 rounded-xl border border-border-light dark:border-border-dark flex items-center justify-between";
+  fileItem.innerHTML = `
+    <div class="flex items-center space-x-4">
+      <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center">
+        <span class="material-icons text-blue-500">description</span>
+      </div>
+      <div>
+        <p class="font-semibold text-text-light dark:text-text-dark">${file.name}</p>
+        <p class="text-sm text-subtext-light dark:text-subtext-dark">${(file.size / 1024).toFixed(1)} KB</p>
+      </div>
+    </div>
+    <div class="flex items-center space-x-2 w-40">
+      <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full">
+        <div id="progress-${fileId}" class="h-full w-0 bg-primary rounded-full"></div>
+      </div>
+      <span id="percent-${fileId}" class="text-sm text-primary">0%</span>
+    </div>
+  `;
+  fileList.appendChild(fileItem);
+
+  // Upload to Flask backend
+  const formData = new FormData();
+  formData.append("file", file);
+
+  fetch("/upload", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById(`progress-${fileId}`).style.width = "100%";
+    document.getElementById(`percent-${fileId}`).innerText = data.status === "success" ? "✔" : "✖";
+    if(data.status !== "success") {
+      document.getElementById(`progress-${fileId}`).classList.add("bg-red-500");
+    } else {
+      document.getElementById(`progress-${fileId}`).classList.add("bg-green-500");
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById(`percent-${fileId}`).innerText = "✖";
+    document.getElementById(`progress-${fileId}`).classList.add("bg-red-500");
+  });
+}
+
+// =======================
+// Chat / Ask Question
+// =======================
+
+// Create chat container
+const chatContainer = document.createElement("div");
+chatContainer.id = "chat-container";
+chatContainer.className = "mt-8 max-w-lg mx-auto space-y-4";
+document.querySelector(".w-full.max-w-lg").appendChild(chatContainer);
+
+// Input box
+/*const chatBox = document.createElement("div");
+chatBox.className = "flex mt-4";
+chatBox.innerHTML = `
+  <input type="text" id="user-question" placeholder="Ask something about your files..." 
+    class="flex-1 border border-border-light dark:border-border-dark rounded-l-lg p-2 text-text-light dark:text-text-dark">
+  <button id="send-question" class="bg-blue-500 text-white px-4 rounded-r-lg">Send</button>
+`;
+document.querySelector(".w-full.max-w-lg").appendChild(chatBox);
+
+// Handle sending question
+document.getElementById("send-question").addEventListener("click", sendQuestion);*/
+
+function sendQuestion() {
+  const questionInput = document.getElementById("user-question");
+  const question = questionInput.value.trim();
+  if(!question) return;
+
+  // For simplicity, always use the first uploaded file
+  const firstFile = fileList.querySelector("p.font-semibold");
+  if(!firstFile) {
+    alert("Please upload a file first!");
+    return;
+  }
+  const dataset = firstFile.innerText;
+
+  // Show user message
+  appendChatBubble(question, "user");
+  questionInput.value = "";
+
+  // Call Flask /ask
+  fetch("/ask", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({dataset, question})
+  })
+  .then(res => res.json())
+  .then(data => {
+    // data: {answer, type, table?, chart?}
+    if(data.type === "text") {
+      appendChatBubble(data.answer, "bot");
+    } else if(data.type === "table") {
+      appendChatBubble(data.answer, "bot");
+      appendTable(data.table);
+    }
+    // TODO: handle chart if chart data exists
+  })
+  .catch(err => {
+    console.error(err);
+    appendChatBubble("Error: Could not get answer.", "bot");
+  });
+}
+
+// =======================
+// Helper Functions
+// =======================
+function appendChatBubble(text, sender) {
+  const bubble = document.createElement("div");
+  bubble.className = sender === "user" ? 
+    "text-right text-text-light dark:text-text-dark" : 
+    "text-left text-text-light dark:text-text-dark";
+  bubble.innerHTML = `<div class="inline-block bg-gray-200 dark:bg-gray-700 rounded-lg p-2">${text}</div>`;
+  chatContainer.appendChild(bubble);
+  bubble.scrollIntoView({behavior: "smooth"});
+}
+
+function appendTable(tableData) {
+  if(!tableData || !tableData.columns || !tableData.rows) return;
+  const table = document.createElement("table");
+  table.className = "w-full border border-border-light dark:border-border-dark mt-2 text-sm text-text-light dark:text-text-dark";
+  let html = "<thead><tr>";
+  tableData.columns.forEach(col => html += `<th class='border px-2 py-1'>${col}</th>`);
+  html += "</tr></thead><tbody>";
+  tableData.rows.forEach(row => {
+    html += "<tr>";
+    row.forEach(cell => html += `<td class='border px-2 py-1'>${cell}</td>`);
+    html += "</tr>";
+  });
+  html += "</tbody>";
+  table.innerHTML = html;
+  chatContainer.appendChild(table);
+  table.scrollIntoView({behavior: "smooth"});
+}
+</script>
+
+
+    </div>
+</body>
+
+</html>

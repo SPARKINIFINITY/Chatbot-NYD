@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Report — RAG Chatbot</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: #121a33;
+      --muted: #9fb0ff;
+      --text: #e8edff;
+      --accent: #6ea8fe;
+      --ok: #34d399;
+      --warn: #fde047;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1000px 600px at 10% -10%, rgba(110,168,254,.12), transparent),
+                  radial-gradient(800px 500px at 120% 10%, rgba(52,211,153,.08), transparent),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 32px 20px 80px; }
+    header { margin-bottom: 28px; }
+    h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: .3px; }
+    h2 { font-size: 20px; margin: 26px 0 10px; color: var(--muted); }
+    p { margin: 10px 0; }
+    .grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border: 1px solid rgba(110,168,254,.18);
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.35);
+      padding: 18px 18px;
+    }
+    code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; border: 1px solid rgba(255,255,255,.15); color: var(--muted); }
+    .list { padding-left: 18px; }
+    .kvs { display: grid; grid-template-columns: 180px 1fr; gap: 8px 14px; }
+    .muted { color: #b8c4ff; opacity: .85; }
+    .ok { color: var(--ok); }
+    .warn { color: var(--warn); }
+    .box {
+      border: 1px dashed rgba(255,255,255,.2);
+      border-radius: 10px;
+      padding: 12px 14px;
+      background: rgba(255,255,255,.03);
+      overflow-x: auto;
+    }
+    .small { font-size: 13px; }
+    .foot { margin-top: 28px; font-size: 12px; color: #aab4ff; opacity: .8; }
+  </style>
+  <script>
+    function exportPdfHint(){
+      alert('To submit as PDF: Press Ctrl+P (Cmd+P on macOS) → Destination: Save as PDF → More Settings: Enable Background Graphics → Save.');
+    }
+  </script>
+  <meta name="description" content="End-to-end report of the Retrieval-Augmented Generation chatbot: architecture, pipeline, LLMs used, novelty, challenges, and roadmap." />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 24 24' fill='none' stroke='%236ea8fe' stroke-width='1.5'%3E%3Cpath d='M4 7h16M4 12h10M4 17h16'/%3E%3C/svg%3E" />
+  <style>@media print { .no-print { display: none !important; } body { background: #fff; color: #111; } .card { border-color: #e5e7eb; } }</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="pill no-print">RAG Chatbot — Technical Report</div>
+      <h1>Code Pipeline and System Explanation</h1>
+      <p class="muted">This report documents the architecture, pipeline, LLMs used, novelty, challenges, and a two‑month improvement plan.</p>
+      <button class="no-print pill" onclick="exportPdfHint()">How to export as PDF</button>
+    </header>
+
+    <section class="grid">
+      <div class="card">
+        <h2>1. System Overview</h2>
+        <p>Retrieval‑Augmented Generation (RAG) chatbot that ingests user documents, indexes them into a FAISS vector store, retrieves relevant chunks via hybrid search (semantic + BM25) with optional cross‑encoder reranking, and generates grounded answers using a seq2seq LLM.</p>
+        <div class="kvs small">
+          <div class="muted">Backend</div><div>Flask (`/health`, `/upload`, `/query`, `/ask`, `/files`)</div>
+          <div class="muted">Core</div><div>FAISS, Sentence-Transformers, Rank-BM25, Cross-Encoder reranking</div>
+          <div class="muted">Generation</div><div>Hugging Face `pipeline(text2text-generation)`</div>
+          <div class="muted">Storage</div><div>FAISS index + `metadata.jsonl` + embedding cache</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>2. End‑to‑End Pipeline</h2>
+        <div class="box small">
+<pre>
+Client → /upload
+  1) Parse: PDFs, DOCX, CSV/XLSX, TXT, code files → records
+  2) Clean: normalize text, basic sanitization
+  3) Chunk: text and tabular chunks (CSV snapshot stored)
+  4) Embed: Sentence‑Transformers (cached by file hash)
+  5) Index: FAISS (Inner Product); persist `faiss.index` + `metadata.jsonl`
+
+Client → /query or /ask
+  6) Detect tabular intent → run lightweight table engine → return table/metric
+  7) Retrieve text: semantic (FAISS) ± BM25 fusion; optional Cross‑Encoder rerank
+  8) Build context: filename + chunk type + body text
+  9) Generate: seq2seq LLM (deterministic, max_new_tokens=256)
+ 10) Return: answer + supporting chunks
+</pre>
+        </div>
+        <p class="small muted">Key files: `utils/parsers.py`, `utils/cleaning.py`, `utils/chunking.py`, `utils/embeddings.py`, `utils/vectorstore.py`, `utils/retrieval.py`, `utils/llm.py`, `app.py`.</p>
+      </div>
+
+      <div class="card">
+        <h2>3. LLMs and Models Used</h2>
+        <ul class="list">
+          <li><b>Embedding model</b>: `sentence-transformers/all-MiniLM-L6-v2`</li>
+          <li><b>Cross‑Encoder reranker</b>: `cross-encoder/ms-marco-MiniLM-L-6-v2`</li>
+          <li><b>Generator (primary)</b>: `google/flan-t5-base`</li>
+          <li><b>Generator (fallback)</b>: `google/flan-t5-small`</li>
+        </ul>
+        <p class="small muted">Configurable via env: `EMBEDDING_MODEL`, `CROSS_ENCODER`, `GEN_MODEL`. See `utils/config.py`.</p>
+      </div>
+
+      <div class="card">
+        <h2>4. Novelty vs. Reference Hackathon Winners</h2>
+        <ul class="list">
+          <li><b>Hybrid retrieval with persisted full text</b>: We persist chunk text in `metadata.jsonl`, enabling BM25 fusion and explainable context blocks.</li>
+          <li><b>On‑the‑fly reranking</b>: Optional Cross‑Encoder rerank over unique retrieved items for quality at query time.</li>
+          <li><b>Tabular query mode</b>: Lightweight table engine that answers simple analytical queries directly from CSV/XLSX snapshots.</li>
+          <li><b>Deterministic generation</b>: Uses seq2seq with `do_sample=false` to improve reproducibility for evaluations.</li>
+          <li><b>Embedding cache keyed by file hash</b>: Avoids recompute and mismatched FAISS dims by auto‑rebuilding index as needed.</li>
+          <li><b>File‑scoped restriction</b>: Query can be constrained by filename or file hash for document‑aware QA.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>5. Challenges Faced</h2>
+        <ul class="list">
+          <li><b>Model and library compatibility</b>: Aligning Torch, FAISS, Transformers on Python 3.13.</li>
+          <li><b>FAISS dimensionality</b>: Handling vector dim drift when model configs change; we rebuild index when mismatch is detected.</li>
+          <li><b>Document heterogeneity</b>: PDFs vs. tabular vs. code require different parsing and chunking heuristics.</li>
+          <li><b>Memory/latency</b>: Keeping CPU‑only inference responsive with reranking and multi‑stage retrieval.</li>
+          <li><b>Grounding quality</b>: Balancing BM25 and dense retrieval and avoiding near‑duplicate chunks.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>6. Two‑Month Improvement Plan</h2>
+        <ul class="list">
+          <li><b>Multi‑query expansion via LLM</b>: Replace templates with real query expansion to increase recall.</li>
+          <li><b>Citations and span highlighting</b>: Inline citations with chunk IDs and highlighted evidence spans.</li>
+          <li><b>Model upgrades</b>: Switchable backends (local LLaMA/Qwen via GGUF; cloud GPT‑4o/Claude) with streaming.</li>
+          <li><b>Retriever tuning</b>: ColBERTv2/Contriever options; reciprocal rank fusion; per‑file balancing.</li>
+          <li><b>Eval and telemetry</b>: RAGAS style eval sets, failure taxonomies, and query analytics.</li>
+          <li><b>Better PDF/OCR</b>: Structured PDF parsing and OCR for scanned documents.</li>
+          <li><b>UI/UX</b>: Source filters, chat history, and table visualizations with sorting and export.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>7. API Summary</h2>
+        <div class="box small">
+<pre>
+GET  /health            → status ok
+POST /upload            → process and index a file
+POST /query             → { query, top_k, use_bm25, use_multiquery, use_rerank, filename?, file_hash? }
+POST /ask               → compatibility endpoint; returns text or table
+GET  /files             → list indexed files
+DELETE /files           → remove by filename or file_hash
+</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>8. How to Export as PDF</h2>
+        <ol class="list">
+          <li><b>Open</b> this page in your browser (it is served by the Flask app).</li>
+          <li><b>Press</b> Ctrl+P (Cmd+P on macOS).</li>
+          <li><b>Destination</b>: Save as PDF. <b>More settings</b>: Enable Background Graphics.</li>
+          <li><b>Save</b> and upload the resulting PDF to the form.</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h2>9. Code Pointers</h2>
+        <div class="kvs small">
+          <div class="mono">utils/config.py</div><div>Model names, ports, directories</div>
+          <div class="mono">utils/embeddings.py</div><div>Sentence‑Transformers embed + cache</div>
+          <div class="mono">utils/vectorstore.py</div><div>FAISS index, persistence, search</div>
+          <div class="mono">utils/retrieval.py</div><div>Hybrid retrieval, BM25, reranking</div>
+          <div class="mono">utils/llm.py</div><div>Generation pipeline and prompt</div>
+          <div class="mono">app.py</div><div>Flask routes, wiring, tabular engine</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="foot">Tip: Configure models via env vars (e.g., <span class="mono">GEN_MODEL=google/flan-t5-base</span>) before starting the server.</div>
+  </div>
+</body>
+</html>
+
+

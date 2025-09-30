@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Twiks.AI</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <a href="upload.html"></a>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#F97316", // Using a vibrant orange as primary, can be adjusted
+                        "background-light": "#F8FAFC",
+                        "background-dark": "#18181B",
+                        "sidebar-light": "#FFFFFF",
+                        "sidebar-dark": "#27272A",
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#27272A",
+                        "text-light": "#334155",
+                        "text-dark": "#E2E8F0",
+                        "subtext-light": "#64748B",
+                        "subtext-dark": "#94A3B8",
+                        "border-light": "#E2E8F0",
+                        "border-dark": "#3F3F46",
+                    },
+                    fontFamily: {
+                        sans: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        'lg': '0.75rem',
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+    <div class="flex h-screen relative">
+        <div
+            class="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-yellow-100 to-transparent dark:from-yellow-900/20 dark:to-transparent -z-10">
+        </div>
+        <aside
+            class="w-64 bg-transparent p-4 flex flex-col justify-between border-r border-border-light dark:border-border-dark">
+            <div>
+                <div class="flex items-center space-x-2 mb-8">
+                    <div class="w-8 h-8 bg-gray-300 rounded-md flex items-center justify-center">
+                        <span class="material-icons text-gray-600">auto_awesome</span>
+                    </div>
+                    <h1 class="text-lg font-bold text-text-light dark:text-text-dark">Insightify</h1>
+                </div>
+                <button
+                    class="w-full bg-white dark:bg-gray-700 border border-border-light dark:border-border-dark text-text-light dark:text-text-dark font-semibold py-2 px-4 rounded-lg flex items-center justify-center mb-6 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                    <span class="material-icons mr-2">add</span>
+                    New chat
+                </button>
+                <nav class="space-y-2">
+                    <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                        href="upload.html">
+                        <span class="material-icons ">upload_file</span>
+                        <span>Upload</span>
+                    </a>
+                    <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                        href="#">
+                        <span class="material-icons">grid_view</span>
+                        <span>Templates</span>
+                    </a>
+                    <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                        href="#">
+                        <span class="material-icons">folder_open</span>
+                        <span>Files</span>
+                    </a>
+                    <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                        href="#">
+                        <span class="material-icons">history</span>
+                        <span>History</span>
+                    </a>
+                </nav>
+                <div class="mt-8">
+                    <h2 class="text-sm font-semibold text-subtext-light dark:text-subtext-dark px-2 mb-2">Recent Chats
+                    </h2>
+                    <div class="space-y-1">
+                        <a class="flex items-center space-x-3 p-2 rounded-lg text-text-light dark:text-text-dark bg-gray-100 dark:bg-gray-700/50"
+                            href="#">
+                            <span class="material-icons text-sm">chat_bubble_outline</span>
+                            <span class="text-sm">New Design Ideas for Work</span>
+                        </a>
+                        <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                            href="#">
+                            <span class="material-icons text-sm">chat_bubble_outline</span>
+                            <span class="text-sm">Smoothie Recipe Sugges...</span>
+                        </a>
+                        <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                            href="#">
+                            <span class="material-icons text-sm">chat_bubble_outline</span>
+                            <span class="text-sm">Tips for Daily Productivity</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                
+                <nav class="space-y-1">
+                    <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                        href="#">
+                        <span class="material-icons">help_outline</span>
+                        <span>FAQ</span>
+                    </a>
+                    <a class="flex items-center space-x-3 p-2 rounded-lg text-subtext-light dark:text-subtext-dark hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                        href="#">
+                        <span class="material-icons">settings</span>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+        <main class="flex-1 flex flex-col p-6 bg-transparent">
+            <header class="flex justify-end items-center mb-8">
+                <button
+                    class="border border-border-light dark:border-border-dark py-2 px-4 rounded-lg text-text-light dark:text-text-dark flex items-center space-x-2 hover:bg-gray-100 dark:hover:bg-gray-700/50">
+                    <span class="material-icons text-base">help_outline</span>
+                    <span>Help</span>
+                </button>
+                <div class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full ml-4"></div>
+            </header>
+            <div class="flex-1 flex flex-col items-center justify-center text-center">
+                
+                <h2 class="text-3xl font-bold text-text-light dark:text-text-dark">Insightify</h2>
+                <p class="text-lg text-subtext-light dark:text-subtext-dark mt-2 max-w-md">Upload any dataset, ask questions, and get insights with charts & tables.</p>
+                <div class="w-full max-w-2xl mt-12">
+                    <div class="relative">
+                        <span
+                            class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-subtext-light dark:text-subtext-dark">search</span>
+                        <input id="home-question"
+                            class="w-full bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark rounded-full py-3 pl-12 pr-16 text-text-light dark:text-text-dark placeholder-subtext-light dark:placeholder-subtext-dark focus:ring-2 focus:ring-primary focus:border-transparent"
+                            placeholder="Ask Something..." type="text" />
+                        <button id="home-send"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 bg-black dark:bg-gray-200 text-white dark:text-black rounded-full w-8 h-8 flex items-center justify-center">
+                            <span class="material-icons text-base">arrow_upward</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 w-full max-w-4xl">
+    <!-- Multi-Format Support -->
+    <div
+        class="bg-card-light dark:bg-card-dark p-6 rounded-xl border border-border-light dark:border-border-dark text-left">
+        <div
+            class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center mb-4">
+            <span class="material-icons text-blue-500">upload_file</span>
+        </div>
+        <h3 class="font-semibold text-text-light dark:text-text-dark mb-1">Upload Any File</h3>
+        <p class="text-sm text-subtext-light dark:text-subtext-dark">
+            Seamlessly work with CSV, Excel, JSON, or PDF documents—no extra setup needed.
+        </p>
+    </div>
+
+    <!-- Conversational Insights -->
+    <div
+        class="bg-card-light dark:bg-card-dark p-6 rounded-xl border border-border-light dark:border-border-dark text-left">
+        <div
+            class="w-10 h-10 rounded-lg bg-yellow-100 dark:bg-yellow-900/50 flex items-center justify-center mb-4">
+            <span class="material-icons text-yellow-500">chat</span>
+        </div>
+        <h3 class="font-semibold text-text-light dark:text-text-dark mb-1">Chat with Your Data</h3>
+        <p class="text-sm text-subtext-light dark:text-subtext-dark">
+            Ask natural questions and get instant answers—no SQL or coding required.
+        </p>
+    </div>
+
+    <!-- Smart Visualizations -->
+    <div
+        class="bg-card-light dark:bg-card-dark p-6 rounded-xl border border-border-light dark:border-border-dark text-left">
+        <div
+            class="w-10 h-10 rounded-lg bg-pink-100 dark:bg-pink-900/50 flex items-center justify-center mb-4">
+            <span class="material-icons text-pink-500">insights</span>
+        </div>
+        <h3 class="font-semibold text-text-light dark:text-text-dark mb-1">Visual Insights</h3>
+        <p class="text-sm text-subtext-light dark:text-subtext-dark">
+            Get clean tables and interactive charts generated automatically from your queries.
+        </p>
+    </div>
+</div>
+
+            </div>
+        </main>
+    </div>
+    <script>
+      const qInput = document.getElementById('home-question');
+      const qBtn = document.getElementById('home-send');
+      function askHome() {
+        const q = qInput.value.trim();
+        if(!q) return;
+        qBtn.disabled = true;
+        fetch('/ask', { method: 'POST', headers: { 'Content-Type': 'application/json'}, body: JSON.stringify({ question: q }) })
+          .then(r => r.json())
+          .then(data => {
+            alert((data && data.answer) ? data.answer : 'No answer');
+          })
+          .catch(() => alert('Error asking question'))
+          .finally(() => { qBtn.disabled = false; });
+      }
+      qBtn && qBtn.addEventListener('click', askHome);
+      qInput && qInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') askHome(); });
+    </script>
+</body>
+
+</html>

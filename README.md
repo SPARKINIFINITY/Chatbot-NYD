@@ -1,8 +1,6 @@
 # Chatbot-NYD
 <div align="center">
 
-# RAG Chatbot
-
 Document QA with Hybrid Retrieval (FAISS + BM25 + Cross‑Encoder) and FLAN‑T5
 
 <br />
@@ -14,7 +12,7 @@ Document QA with Hybrid Retrieval (FAISS + BM25 + Cross‑Encoder) and FLAN‑T5
 
 </div>
 
-Enterprise‑style Retrieval‑Augmented Generation (RAG) system for answering questions over user‑uploaded content. The service ingests files, builds a vector index, performs hybrid retrieval (semantic + BM25) with optional Cross‑Encoder reranking, and generates grounded answers using a seq2seq LLM. Tabular queries on CSV/XLSX are answered via a lightweight table engine.
+AI chatbot system for answering questions over user‑uploaded content. The service ingests files, builds a vector index, performs hybrid retrieval (semantic + BM25) with optional Cross‑Encoder reranking, and generates grounded answers using a seq2seq LLM. Tabular queries on CSV/XLSX are answered via a lightweight table engine.
 
 ---
 

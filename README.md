@@ -12,7 +12,7 @@ Document QA with Hybrid Retrieval (FAISS + BM25 + Cross‑Encoder) and FLAN‑T5
 
 </div>
 
-AI chatbot system for answering questions over user‑uploaded content. The service ingests files, builds a vector index, performs hybrid retrieval (semantic + BM25) with optional Cross‑Encoder reranking, and generates grounded answers using a seq2seq LLM. Tabular queries on CSV/XLSX are answered via a lightweight table engine.
+AI chatbot system for answering questions over user‑uploaded content. The service ingests files, builds a vector index, performs hybrid retrieval (semantic + BM25) with Cross‑Encoder reranking, and generates grounded answers using a seq2seq LLM. Tabular queries on CSV/XLSX are answered via a lightweight table engine.
 
 ---
 
@@ -33,7 +33,7 @@ AI chatbot system for answering questions over user‑uploaded content. The serv
 
 ## Overview
 - Hybrid retrieval: FAISS dense search + BM25 fusion on persisted chunk text.
-- Quality controls: optional Cross‑Encoder reranking and document scoping by file/hash.
+- Quality controls: Cross‑Encoder reranking (ANN)and document scoping by file/hash.
 - Deterministic generation: FLAN‑T5 with greedy decoding for reproducible results.
 - Tabular mode: direct answers from CSV/XLSX snapshots.
 - Durable persistence: FAISS index, JSONL metadata, and on‑disk embedding cache.
